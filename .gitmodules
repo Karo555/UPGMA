@@ -1,0 +1,6 @@
+[submodule "NW/needleman_wunsch"]
+	path = NW/needleman_wunsch
+	url = https://github.com/Karo555/needleman-wunsch
+[submodule "MSA/multiple_sequence_alignment"]
+	path = MSA/multiple_sequence_alignment
+	url = https://github.com/Karo555/multiple_sequence_alignment
