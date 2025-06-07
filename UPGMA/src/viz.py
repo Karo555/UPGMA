@@ -1,7 +1,8 @@
 import matplotlib.pyplot as plt
+from typing import Optional
 from .tree import TreeNode
 
-def find_parent(root: TreeNode, target_name: str) -> TreeNode | None:
+def find_parent(root: TreeNode, target_name: str) -> Optional[TreeNode]:
     """
     Return the parent TreeNode of the leaf named target_name, or None if not found.
     """

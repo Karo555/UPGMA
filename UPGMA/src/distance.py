@@ -1,7 +1,7 @@
-from MSA.multiple_sequence_alignment.src.cli import ScoringScheme
+from MSA.multiple_sequence_alignment.utils.functions import ScoringScheme
 from typing import List
 from NW.needleman_wunsch.src.aligner.models import Sequence
-from MSA.multiple_sequence_alignment.src.cli import (build_pairwise_score_matrix, convert_scores_to_distances)
+from MSA.multiple_sequence_alignment.utils.functions import (build_pairwise_score_matrix, convert_scores_to_distances)
 from .io import DistanceMatrix  # adjust to your actual io module path
 
 

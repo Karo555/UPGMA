@@ -1,16 +1,24 @@
-from setuptools import setup, find_packages
+from setuptools import setup
 
 setup(
     name="UPGMA",
     version="0.1.0",
-    packages=find_packages(),
+    packages=[
+        "UPGMA",
+        "NW.needleman_wunsch", 
+        "MSA.multiple_sequence_alignment",
+    ],
+    package_dir={
+        "UPGMA": "UPGMA/src",
+        "NW.needleman_wunsch": "NW/needleman_wunsch",
+        "MSA.multiple_sequence_alignment": "MSA/multiple_sequence_alignment",
+    },
     install_requires=[
         "matplotlib",
-        "setuptools"
     ],
     entry_points={
         "console_scripts": [
-            "UPGMA = src.cli:main",
+            "UPGMA = UPGMA.cli:main",
         ],
     },
 )

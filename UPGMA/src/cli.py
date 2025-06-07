@@ -1,10 +1,10 @@
 import argparse
-from io import load_input, InputFormatError
-from distance import compute_distance_matrix
-from upgma import UPGMA
-from tree import write_newick
-from viz import plot_tree
-from MSA.multiple_sequence_alignment.src.cli import ScoringScheme
+from .io import load_input, InputFormatError
+from .distance import compute_distance_matrix
+from .upgma import UPGMA
+from .tree import write_newick
+from .viz import plot_tree
+from MSA.multiple_sequence_alignment.utils.functions import ScoringScheme
 
 
 def parse_args():
