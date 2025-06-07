@@ -18,14 +18,15 @@ An UPGMA phylogenetic‐tree builder in Python, with support for:
 ---
 ## installation
 `git clone https://github.com/Karo555/UPGMA` <br>
---> [*] <br>
+--> * <br>
 `uv virtualenv .venv` <br>
 `source .venv/bin/activate` <br>
 `uv pip install -e .` <br>
 
 
-## [*]package manager
-I am using [uv](https://github.com/astral-sh/uv) as a package manager. Install it by running
+## *package manager
+I am using [uv](https://github.com/astral-sh/uv) as a package manager<br>
+Install it by running<br>
 `curl -LsSf https://astral.sh/uv/install.sh | sh` <br>
 remeber to restart shell after installation.
 
