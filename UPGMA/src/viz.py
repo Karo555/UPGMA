@@ -16,34 +16,43 @@ def find_parent(root: TreeNode, target_name: str) -> Optional[TreeNode]:
 
 def plot_tree(root: TreeNode, path: str) -> None:
     """
-    Render a UPGMA tree as a horizontal dendrogram and save to `path`.
-    Leaves are placed at y = their order.
+    Render a UPGMA tree as a proper dendrogram with vertical and horizontal branches.
     """
-    def collect(node: TreeNode, ys: list[str]=[]) -> dict[str, tuple[float,int]]:
-        coords = {}
+    # Assign x (height) and y (leaf order) for every node
+    coords: dict[TreeNode, tuple[float, float]] = {}
+    y_counter = [0]
+    def _assign(node: TreeNode):
         if node.is_leaf():
-            ys.append(node.name)
-            coords[node.name] = (node.height, len(ys) - 1)
+            y = y_counter[0]
+            coords[node] = (node.height, y)
+            y_counter[0] += 1
         else:
             for child in node.children:
-                coords.update(collect(child, ys))
-        return coords
+                _assign(child)
+            ys = [coords[c][1] for c in node.children]
+            coords[node] = (node.height, sum(ys) / len(ys))
+    _assign(root)
 
-    coords = collect(root)
     fig, ax = plt.subplots()
 
-    for leaf_name, (x_leaf, y_leaf) in coords.items():
-        parent = find_parent(root, leaf_name)
-        if not parent:
-            continue
-        x_parent = parent.height
-        ax.plot([x_parent, x_leaf], [y_leaf, y_leaf], '-')
+    # Draw branches
+    for node, (x, y) in coords.items():
+        if not node.is_leaf():
+            # vertical line at this node's height
+            ys = [coords[c][1] for c in node.children]
+            ax.plot([x, x], [min(ys), max(ys)], '-')
+            # horizontal lines to each child
+            for child in node.children:
+                xc, yc = coords[child]
+                ax.plot([x, xc], [yc, yc], '-')
 
-    leaf_order = sorted(coords.items(), key=lambda kv: kv[1][1])
-    y_ticks = [pos for _, (_, pos) in leaf_order]
-    y_labels = [name for name, _ in leaf_order]
+    # Label only leaves on y-axis
+    leaves = [n for n in coords if n.is_leaf()]
+    leaves.sort(key=lambda n: coords[n][1])
+    y_ticks = [coords[n][1] for n in leaves]
+    labels  = [n.name for n in leaves]
     ax.set_yticks(y_ticks)
-    ax.set_yticklabels(y_labels)
+    ax.set_yticklabels(labels)
     ax.invert_yaxis()
 
     plt.tight_layout()

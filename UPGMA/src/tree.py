@@ -1,4 +1,5 @@
 from typing import List, Optional
+import os
 
 class TreeNode:
     """
@@ -49,8 +50,14 @@ def to_newick(node: TreeNode) -> str:
 
 def write_newick(node: TreeNode, path: str) -> None:
     """
-    Write the Newick string for `node` to the given file path.
+    Write the Newick string for `node` to the given file path,
+    creating parent directories if necessary.
     """
+    # Ensure the output directory exists
+    parent = os.path.dirname(path)
+    if parent:
+        os.makedirs(parent, exist_ok=True)
+
     newick_str = to_newick(node)
     with open(path, "w") as f:
         f.write(newick_str)
