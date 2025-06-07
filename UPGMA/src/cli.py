@@ -42,8 +42,9 @@ def main():
     args = parse_args()
 
     # Prepare output directory next to this file
+    base = os.path.splitext(os.path.basename(args.input_file))[0]
     out_dir = os.path.abspath(
-        os.path.join(os.path.dirname(__file__),"..", "..", "output")
+        os.path.join(os.path.dirname(__file__),"..", "..", "output", base)
     )
     os.makedirs(out_dir, exist_ok=True)
 

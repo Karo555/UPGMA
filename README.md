@@ -27,12 +27,13 @@ An UPGMA phylogenetic‐tree builder in Python, with support for:
 
 ## usage 
 Build a tree from fasta <br>
-`UPGMA seqs.fasta --mode sequences \
-  --match 2 --mismatch -1 --gap -2 \
-  --output-newick tree.nwk \
-  --output-log merges.csv \
-  --output-plot tree.png`
+`UPGMA UPGMA/data/example1.fasta --mode sequences \  
+  -o UPGMA/output/tree1.nwk \
+  --output-log UPGMA/output/merges1.csv \
+  --output-plot UPGMA/output/tree1.png`
 
 use precompted matrix
-`UPGMA matrix.csv --mode matrix \
-  --output-newick tree.nwk`
+ `UPGMA UPGMA/data/example_matrix1.csv --mode matrix \
+  -o tree.nwk \
+  --output-log merges.csv \
+  --output-plot tree.png`

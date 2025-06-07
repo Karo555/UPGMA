@@ -1,0 +1,5 @@
+cluster_i,cluster_j,height
+Cat,Dog,0.500000
+Cow,Sheep,0.500000
+Cow|Sheep,Pig,2.250000
+Cat|Dog,Cow|Sheep|Pig,3.750000
