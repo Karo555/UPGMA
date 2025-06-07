@@ -1,7 +1,8 @@
+# upgma.py
+
 from typing import List, Tuple
 from .io import DistanceMatrix
 from .tree import TreeNode
-
 
 class UPGMA:
     def __init__(self, dm: DistanceMatrix):
@@ -13,6 +14,15 @@ class UPGMA:
         # Deep copy so we can mutate
         self.matrix: List[List[float]] = [row.copy() for row in dm.matrix]
         self.merge_log: List[Tuple[str, str, float]] = []
+
+    def _get_leaf_names(self, node: TreeNode) -> List[str]:
+        """Recursively collect all leaf names under `node`."""
+        if node.is_leaf():
+            return [node.name]
+        names: List[str] = []
+        for child in node.children:
+            names.extend(self._get_leaf_names(child))
+        return names
 
     def _find_closest_pair(self) -> Tuple[int, int]:
         """Return indices (i, j) of the smallest non-zero distance."""
@@ -27,10 +37,12 @@ class UPGMA:
         return pair
 
     def _merge_clusters(self, i: int, j: int, new_node: TreeNode) -> None:
-        """Replace clusters i & j with new_node, update sizes, nodes, and labels."""
-        # Record merge event using current leaf labels
-        label_i = self.nodes[i].name
-        label_j = self.nodes[j].name
+        """Replace clusters i & j with new_node, update sizes, nodes, and merge_log."""
+        # Record merge event using the full leaf sets of each cluster
+        leaves_i = self._get_leaf_names(self.nodes[i])
+        leaves_j = self._get_leaf_names(self.nodes[j])
+        label_i = "|".join(leaves_i)
+        label_j = "|".join(leaves_j)
         self.merge_log.append((label_i, label_j, new_node.height))
 
         # Update node list and sizes
@@ -45,27 +57,10 @@ class UPGMA:
         del self.nodes[j]
         del self.sizes[j]
 
-    def _update_matrix(self, i: int, j: int) -> None:
-        """Compute new distances for cluster i, then remove row/col j."""
-        size_i = self.sizes[i]
-        # size_j was already merged into sizes[i] by _merge_clusters
-        size_j = size_i - (size_i - self.sizes[i])  # not needed, we can compute from record
-        # Actually, capture old sizes before merge for weighted average:
-        # Let's recompute old sizes from merge_log, but simpler: pass sizes into this method.
-        # Instead, restructure: compute weighted average before merging sizes.
-
-        # For clarity, here's a self-contained weighted update:
-        # We'll recalc old sizes by subtracting; but better to pass old sizes in.
-
-        # Instead, do the weighted update inside run() prior to calling _merge_clusters.
-
-        raise NotImplementedError("_update_matrix should be inlined in run() for clarity")
-
     def run(self) -> TreeNode:
         """
         Execute UPGMA clustering.
-        Returns:
-            The final TreeNode (the root of the tree).
+        Returns the final TreeNode (the root of the tree).
         """
         while len(self.nodes) > 1:
             i, j = self._find_closest_pair()
@@ -94,7 +89,7 @@ class UPGMA:
                 self.matrix[i][k] = weighted
                 self.matrix[k][i] = weighted
 
-            # Merge clusters in data structures
+            # Merge clusters in data structures and log properly
             self._merge_clusters(i, j, new_node)
 
             # Remove row j and column j from the distance matrix
