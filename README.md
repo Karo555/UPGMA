@@ -18,22 +18,22 @@ An UPGMA phylogenetic‐tree builder in Python, with support for:
 ---
 
 ## installation
-`git clone https://github.com/Karo555/UPGMA`
-`uv virtualenv .venv`
-`source .venv/bin/activate`
-`uv pip install -e .`
+`git clone https://github.com/Karo555/UPGMA` <br>
+`uv virtualenv .venv` <br>
+`source .venv/bin/activate` <br>
+`uv pip install -e .` <br>
 
 ## usage 
 Build a tree from fasta <br>
 `UPGMA UPGMA/data/example1.fasta --mode sequences \  
   -o UPGMA/output/tree1.nwk \
   --output-log UPGMA/output/merges1.csv \
-  --output-plot UPGMA/output/tree1.png`
+  --output-plot UPGMA/output/tree1.png`<br>
 
 use precompted matrix<br>
  `UPGMA UPGMA/data/example_matrix1.csv --mode matrix \
   -o tree.nwk \
   --output-log merges.csv \
-  --output-plot tree.png`
+  --output-plot tree.png`<br>
 
 `UPGMA --help` for more
