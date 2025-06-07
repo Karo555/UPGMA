@@ -18,7 +18,7 @@ An UPGMA phylogenetic‐tree builder in Python, with support for:
 ---
 ## installation
 `git clone https://github.com/Karo555/UPGMA` <br>
---> [*]
+--> [*] <br>
 `uv virtualenv .venv` <br>
 `source .venv/bin/activate` <br>
 `uv pip install -e .` <br>
