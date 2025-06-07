@@ -1,7 +1,5 @@
 from NW.needleman_wunsch.src.aligner.models import Sequence
 from NW.needleman_wunsch.src.aligner.io import read_fasta
-from MSA.multiple_sequence_alignment.src.cli import build_pairwise_score_matrix
-from MSA.multiple_sequence_alignment.utils.functions import convert_scores_to_distances
 from typing import List, Union, Literal
 import os
 import csv
